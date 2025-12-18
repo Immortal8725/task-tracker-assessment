@@ -1,9 +1,9 @@
 -- Passwords are BCrypt for "password"
 INSERT INTO users (username, email, password_hash, role)
 VALUES
-    ('admin', 'admin@example.com', '$2a$10$W5Lb.3zKv1Qv3Z5Y5f5rU.3f5Z5Y5f5rU.3f5Z5Y5f5rU.3f5Z5Y', 'ADMIN'),
-    ('john', 'john@example.com', '$2a$10$W5Lb.3zKv1Qv3Z5Y5f5rU.3f5Z5Y5f5rU.3f5Z5Y5f5rU.3f5Z5Y', 'USER')
-    ON CONFLICT DO NOTHING;
+    ('admin', 'admin@example.com', '$2a$12$YOUR_BCRYPT_HASH_FOR_password123', 'ADMIN'),
+    ('john', 'john@example.com', '$2a$12$YOUR_BCRYPT_HASH_FOR_password123', 'USER')
+    ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO tasks (title, description, status, due_date, created_date, assigned_user_id)
 VALUES
