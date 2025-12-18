@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taskdb
+    username: taskuser
+    password: taskpass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Liquibase controls schema
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+task:
+  scheduler:
+    cron: "0 0 * * * ?"  # hourly by default
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  liquibase:
+    enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+
+
+jwt:
+  secret: superlongbase64encodedsecretkeyatleast256bitslong1234567890==
+  access-token-expiration: 900000    # 15 minutes in milliseconds
+  refresh-token-expiration: 604800000  # 7 days in milliseconds
