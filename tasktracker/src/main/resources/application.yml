@@ -1,12 +1,16 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/taskdb
-    username: taskuser
-    password: taskpass
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: validate  # Liquibase controls schema
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -16,38 +20,21 @@ spring:
 
 task:
   scheduler:
-    cron: "0 0 * * * ?"  # hourly by default
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-  liquibase:
-    enabled: true
-
----
-spring:
-  config:
-    activate:
-      on-profile: test
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
-
+    cron: "0 0 * * * ?"  # hourly
 
 jwt:
-  secret: superlongbase64encodedsecretkeyatleast256bitslong1234567890==
-  access-token-expiration: 900000    # 15 minutes in milliseconds
-  refresh-token-expiration: 604800000  # 7 days in milliseconds
+  secret: superlongbase64secretkey1234567890abcdefghijklmnopqrstuvwxyz==
+  access-token-expiration: 900000      # 15 minutes
+  refresh-token-expiration: 604800000  # 7 days
+
+# Optional: Keep PostgreSQL config for future Docker/prod use
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://db:5432/taskdb
+    username: taskuser
+    password: taskpass
+    driver-class-name: org.postgresql.Driver
