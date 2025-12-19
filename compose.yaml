@@ -1,0 +1,42 @@
+services:
+  java-tasktracker:
+    build:
+      context: ./tasktracker
+      dockerfile: ../tasktrackerDockerfile
+    container_name: java-tasktracker
+    restart: unless-stopped
+    init: true
+    # env_file: ./tasktracker/.env  # Uncomment if .env file exists
+    ports:
+      - "8080:8080"  # Exposed by Dockerfile, default Spring Boot port
+    depends_on:
+      - postgres-db
+    networks:
+      - tasktracker-net
+
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tasktracker
+      POSTGRES_USER: tasktracker
+      POSTGRES_PASSWORD: tasktracker
+    ports:
+      - "5432:5432"  # Default PostgreSQL port
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tasktracker-net
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data  # Uncomment to persist database data
+
+networks:
+  tasktracker-net:
+    driver: bridge
+
+# volumes:
+#   pgdata:  # Uncomment to persist database data

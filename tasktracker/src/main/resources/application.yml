@@ -38,3 +38,15 @@ spring:
     username: taskuser
     password: taskpass
     driver-class-name: org.postgresql.Driver
+    ---
+    spring:
+      config:
+        activate:
+          on-profile: prod
+      jpa:
+        hibernate:
+          ddl-auto: validate  # Liquibase controls schema
+        defer-datasource-initialization: false
+      sql:
+        init:
+          mode: never  # Disable data.sql in prod
