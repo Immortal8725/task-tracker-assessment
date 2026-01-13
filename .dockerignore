@@ -1,0 +1,75 @@
+# Version control
+.git/
+.gitignore
+.svn/
+.hg/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Java build output
+/target/
+*.class
+.gradle/
+
+# Other build outputs
+build/
+dist/
+out/
+debug/
+
+# Test files and directories
+test/
+tests/
+*_test.go
+
+# Logs and debug
+*.log
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+.local/
+
+# Documentation and markdown
+docs/
+*.md
+README*
+HELP.md
+
+# Temporary and cache files
+tmp/
+temp/
+*.tmp
+
+# Node.js (for completeness)
+node_modules/
+npm-debug.log
+yarn-debug.log
+
+# Python (for completeness)
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# Go (for completeness)
+/vendor/
+*.test
+.go-cache/
+
+# Docker files
+docker-compose*
+Dockerfile*
+
+# Project-specific exclusions
+# (No exclusions for .mvnw, .mvn, .gradlew, .gradle as per instructions)
